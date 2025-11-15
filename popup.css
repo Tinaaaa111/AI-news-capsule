@@ -1,0 +1,188 @@
+/* ---------- Base ---------- */
+:root{
+  --accent:#e35d00;
+  --ink:#111;
+  --muted:#555;
+  --card:#fff8f2;
+  --line:#ddd;
+  --shadow:0 2px 10px rgba(0,0,0,.06);
+}
+
+body{
+  font-family:"Segoe UI", Roboto, sans-serif;
+  color:var(--ink);
+  margin:0;
+  padding:0;
+  width:480px;              /* wider */
+  background:#fff;
+  overflow-x:hidden;
+}
+
+.container{ padding:16px 18px 20px; }
+
+/* ---------- Header ---------- */
+h1{
+  font-size:22px; font-weight:700; text-align:center; margin:0 0 4px;
+}
+.tagline{
+  text-align:center; margin:0 0 14px; font-size:13.5px;
+  color:var(--accent); font-weight:700;   /* bold orange tagline */
+}
+
+/* ---------- Controls ---------- */
+.controls{ display:flex; gap:10px; justify-content:center; align-items:center; margin-bottom:8px; }
+select{
+  background:#f9f9f9; border:1px solid var(--line); border-radius:8px;
+  padding:8px 10px; font-size:14px; cursor:pointer; min-width:160px;
+}
+button#loadNews{
+  background:#0b5ed7; color:#fff; border:none; border-radius:8px;
+  padding:8px 14px; font-weight:600; cursor:pointer;
+}
+button#loadNews:hover{ background:#094fb6; }
+
+#status{ font-size:13px; color:var(--muted); text-align:center; margin:8px 0; }
+
+/* ---------- News List ---------- */
+.news-container{ max-height:520px; overflow:auto; outline:0; }
+.day-header{
+  font-weight:600; color:#444; border-bottom:1px solid var(--line);
+  margin:14px 0 8px; padding-bottom:4px;
+}
+.news-card{
+  background:#fff; border-left:4px solid var(--accent); box-shadow:var(--shadow);
+  border-radius:8px; margin-bottom:12px; padding:12px 12px;
+}
+.news-card h3{ margin:0 0 4px; font-size:16px; line-height:1.35; }
+.news-card p{ margin:0; font-size:13px; color:#333; }
+
+.summary{ margin-top:8px; }
+.summary b{ font-size:13.5px; }
+.ai-text{
+  background:var(--card); padding:8px 10px; border-radius:8px; margin-top:4px;
+  font-size:13px; line-height:1.55;
+}
+
+button.read-more{
+  background:var(--accent); color:#fff; border:none; border-radius:8px;
+  padding:7px 12px; font-size:13px; font-weight:600; margin-top:10px; cursor:pointer;
+}
+button.read-more:hover{ background:#c94e00; }
+
+/* ---------- Ask AI main button ---------- */
+#askAI{
+  width:100%; margin:10px 0 0; padding:10px 0; background:#fff;
+  border:1px solid var(--accent); color:var(--accent); border-radius:10px; font-weight:700;
+}
+#askAI:hover{ background:#fff3ea; }
+
+/* ---------- Quick Ask bubble ---------- */
+#quickAsk{
+  display:none; position:absolute; background:var(--accent); color:#fff;
+  border-radius:18px; padding:6px 10px; font-size:12px; box-shadow:0 3px 8px rgba(0,0,0,.25);
+  z-index:10000; cursor:pointer;
+}
+
+/* ---------- Modal ---------- */
+.modal{ position:fixed; inset:0; background:rgba(0,0,0,.4); display:flex; align-items:center; justify-content:center; z-index:9999; }
+.modal.hidden{ display:none; }
+
+#modalBody{
+  position:relative; background:#fff; width:86%; max-width:760px; max-height:85vh; overflow:auto;
+  border-left:6px solid var(--accent); border-radius:12px; padding:18px 18px 14px; box-shadow:0 4px 24px rgba(0,0,0,.2);
+}
+
+/* global close (the one your JS is listening to) */
+.modal-close{
+  position:absolute; top:10px; right:12px; background:none; border:none; font-size:22px; font-weight:700;
+  color:#555; cursor:pointer; z-index:10001;
+}
+.modal-close:hover{ color:var(--accent); }
+
+.modal-section{ margin-top:12px; }
+.modal-section h4{ margin:0 0 6px; }
+
+/* ---------- Floating Chat Panel (Ask AI) ---------- */
+.chat-panel{ position:fixed; right:20px; bottom:20px; width:400px; max-height:80vh; background:#fff;
+  border-radius:14px; border-left:5px solid var(--accent); box-shadow:0 4px 24px rgba(0,0,0,.15); display:flex; flex-direction:column; overflow:hidden; z-index:10000; }
+.chat-header{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; font-weight:700; background:#f9f5f0; border-bottom:1px solid var(--line); }
+.chat-close{ background:none; border:none; font-size:20px; font-weight:700; color:#444; cursor:pointer; }
+.chat-close:hover{ color:var(--accent); }
+.chat-body{ flex:1; overflow:auto; padding:10px 14px; font-size:14px; line-height:1.45; }
+.message.user{ background:#f3f3f3; border-radius:8px; padding:8px 10px; margin-bottom:8px; }
+.message.ai{ background:var(--card); border-left:3px solid var(--accent); border-radius:8px; padding:8px 10px; margin-bottom:8px; }
+.chat-input{ display:flex; gap:8px; padding:8px; border-top:1px solid var(--line); }
+.chat-input textarea{ flex:1; height:56px; resize:none; border:1px solid #ccc; border-radius:8px; padding:8px; font-size:14px; }
+.chat-input .chat-send{ background:var(--accent); color:#fff; border:none; border-radius:8px; padding:8px 14px; font-weight:600; cursor:pointer; }
+.chat-input .chat-send:hover{ background:#d45300; }
+
+/* ---------- Scrollbars (optional) ---------- */
+.news-container::-webkit-scrollbar,
+.chat-body::-webkit-scrollbar,
+#modalBody::-webkit-scrollbar{ width:8px; }
+.news-container::-webkit-scrollbar-thumb,
+.chat-body::-webkit-scrollbar-thumb,
+#modalBody::-webkit-scrollbar-thumb{ background:var(--accent); border-radius:10px; }
+/* ---------- Markdown Styling Enhancements ---------- */
+.ai-text p {
+  margin: 6px 0 10px;
+  line-height: 1.6;
+  color: #222;
+}
+
+.ai-text h2,
+.ai-text h3,
+.ai-text h4 {
+  margin: 10px 0 6px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.ai-text ul, 
+.ai-text ol {
+  margin: 6px 0 10px 18px;
+  padding-left: 16px;
+}
+
+.ai-text li {
+  margin: 4px 0;
+  line-height: 1.55;
+}
+
+.ai-text b {
+  color: #000;
+}
+
+.ai-text i {
+  color: #444;
+}
+
+.ai-text br {
+  display: block;
+  margin: 4px 0;
+  content: "";
+}
+
+.ai-text a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.ai-text a:hover {
+  text-decoration: underline;
+}
+/* --- Markdown list readability fixes --- */
+.ai-text ol, .ai-text ul {
+  margin: 8px 0 8px 20px;
+  padding-left: 20px;
+}
+
+.ai-text li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+/* Optional: make numbers orange */
+.ai-text ol li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
